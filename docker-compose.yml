@@ -1,0 +1,20 @@
+version: "3.4"
+services:
+  jupyter:
+    user: root
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    environment:
+     - NB_USER=csprock
+     - NB_UID=1000
+     - NB_GID=1000
+     - NB_GROUP=development
+     - JUPYTER_LAB_ENABLE=yes
+     - CHOWN_HOME=yes
+    ports:
+     - ${JUPYTER_PORT}:8989
+    volumes:
+     - ./:/home/${USER}/work
+    command: ["start-notebook.sh","--port=8989","--allow-root", "--NotebookApp.password='sha1:f217aa434731:b01a46c5ffccfc413ccffc33c802882737ac2ccd'"] 
+
